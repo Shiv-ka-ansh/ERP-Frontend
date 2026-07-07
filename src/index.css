@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap');
+
+@font-face {
+ font-family: 'Nohemi';
+ src: url('/fonts/Nohemi-Regular.ttf') format('truetype');
+ font-weight: 400;
+ font-style: normal;
+}
+@font-face {
+ font-family: 'Nohemi';
+ src: url('/fonts/Nohemi-Bold.ttf') format('truetype');
+ font-weight: 700;
+ font-style: normal;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+ :root {
+ --font-heading: 'Outfit', sans-serif;
+ --font-body: 'Inter', sans-serif;
+ }
+ 
+ h1, h2, h3, h4, .font-brand {
+ font-family: var(--font-heading);
+ }
+ 
+ body {
+ font-family: var(--font-body);
+ }
+}
+
+@media print {
+ .no-print,
+ .sidebar,
+ .topbar,
+ .page-header,
+ .action-bar,
+ .print\:hidden { display: none !important; }
+
+ .a4-paper {
+ box-shadow: none !important;
+ margin: 0 !important;
+ padding: 15mm !important;
+ }
+
+ body { background: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+ /* Bulk ID Cards print layout — 54x86mm cards, 2 wide on A4 */
+ @page {
+ size: A4 portrait;
+ margin: 6mm;
+ }
+ .id-cards-grid {
+ display: grid !important;
+ grid-template-columns: 54mm 54mm !important;
+ grid-auto-rows: 86mm !important;
+ gap: 4mm !important;
+ padding: 0 !important;
+ width: 100% !important;
+ }
+ .id-card {
+ width: 54mm !important;
+ height: 86mm !important;
+ break-inside: avoid !important;
+ page-break-inside: avoid !important;
+ box-shadow: none !important;
+ border: 0.5px solid #ccc !important;
+ border-radius: 3mm !important;
+ overflow: hidden !important;
+ max-width: 100% !important;
+ }
+ /* Single ID card print */
+ .single-id-card-wrap {
+ display: flex !important;
+ justify-content: center !important;
+ align-items: center !important;
+ }
+ .single-id-card-wrap .id-card {
+ width: 54mm !important;
+ height: 86mm !important;
+ }
+
+ /* Hide sidebar/layout wrapper for full-page print */
+ aside, header, nav { display: none !important; }
+ main, [class*="ml-"] { margin-left: 0 !important; padding: 0 !important; }
+
+ /* Fee Receipt Modal Print Fix */
+ /* Hide everything except the receipt when modal is open */
+  body:has(.fee-receipt-print) .fee-receipt-print {
+    display: block !important;
+    position: fixed !important;
+    inset: 0 !important;
+    background: white !important;
+    z-index: 9999 !important;
+    padding: 12mm !important;
+    margin: 0 auto !important;
+    width: 210mm !important;
+    height: 297mm !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+    visibility: visible !important;
+  }
+
+  body:has(.fee-receipt-print) *:not(.fee-receipt-print):not(.fee-receipt-print *) {
+    visibility: hidden !important;
+  } 
+
+  body:has(.fee-receipt-print) .fee-receipt-print * {
+    visibility: visible !important;
+  }
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+
+/* Slim scrollbar for modals */
+.custom-scrollbar::-webkit-scrollbar { width: 5px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: #f8fafc; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+.custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
+
+.react-datepicker-wrapper { width: 100%; display: block; }
+
+/* Custom Scrollbar for Sidebar */
+.sidebar-scrollbar::-webkit-scrollbar {
+ width: 8px;
+}
+.sidebar-scrollbar::-webkit-scrollbar-track {
+ background: transparent;
+}
+.sidebar-scrollbar::-webkit-scrollbar-thumb {
+ background: rgba(255, 255, 255, 0.1);
+ border-radius: 20px;
+}
+.sidebar-scrollbar::-webkit-scrollbar-thumb:hover {
+ background: rgba(255, 255, 255, 0.2);
+}
